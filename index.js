@@ -8,38 +8,29 @@ const response = require('./response')
 
 app.use(bodyParser.json()) //menggunakan body parser di set mengambil tipe json
 
-// routes / URL / endpoint utama dengan method GET
-app.get('/', (req, res) => {
-    const sql = "SELECT * FROM mahasiswa"
-
-    db.query(sql, (error, result) => {
-        // ini nanti digunain untuk hasil data dari mysql nya
-        response(200, result, "Data berhasil diambil dari mahasiswa", res)
-    })
+app.get("/", (req, res) => {
+    response(200, "ini data", "ini message", res)
 })
 
-app.get('/find', (req, res) => {
-    const sql = `SELECT nama_lengkap FROM mahasiswa WHERE nim = ${req.query.nim}`
-    db.query(sql, (error, result) => {
-        response(200, result, "Data berhasil diambil dari mahasiswa", res)
-    })
+app.get("/mahasiswa", (req, res) => {
+    response(200, "ini data mahasiswa", "ini message untuk mahasiswa", res)
 })
 
-app.get('/mahasiswa', (req, res) => {
-    const sql = `SELECT nama_lengkap,alamat FROM mahasiswa WHERE nim = ${req.query.nim}`
-    db.query(sql, (error, result) => {
-        response(200, result, "Data berhasil diambil dari mahasiswa", res)
-    })
+app.get("/mahasiswa/:nim", (req, res) => {
+    const nim = req.params.nim
+    response(200, "ini data", "ini message", res)
 })
 
-app.post('/login', (req, res) => {
-    console.log({ requestFromOutside: req.body })
-    res.send('Login Berhasil Kawan!')
+app.post("/mahasiswa/post", (req, res) => {
+    response(200, "ini data", "ini message", res)
 })
 
-app.put('/username', (req, res) => {
-    console.log({ updateData: req.body })
-    res.send('Update Success')
+app.put("/mahasiswa/put", (req, res) => {
+    response(200, "ini data", "ini message", res)
+})
+
+app.delete("/mahasiswa/delete", (req, res) => {
+    response(200, "ini data", "ini message", res)
 })
 
 app.listen(port, () => {
